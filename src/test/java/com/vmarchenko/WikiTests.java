@@ -1,5 +1,6 @@
 package com.vmarchenko;
 
+import io.appium.java_client.android.AndroidElement;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -107,6 +108,20 @@ public class WikiTests extends BaseTest {
         Assert.assertTrue(currentArticleTitle.getText().equals(firstResult));
     }
 
+    @Test
+    public void testTitleElementPresentInArticle() {
+        performSearch("Selenium");
+
+        String articleTitle = selectNthResult(2);
+        assertArticleHasTitle(articleTitle);
+    }
+
+    private void assertArticleHasTitle(String articleTitle) {
+        List<AndroidElement> title = driver.findElementsByXPath(String.format("//*[@class='android.view.View' and @text='%s']", articleTitle));
+        Assert.assertFalse(String.format("Title %s was not found", articleTitle), title.isEmpty());
+        Assert.assertEquals("It seems the locator is broken, more than 1 title found", 1, title.size());
+    }
+
     private By savedArticleWithTitleLocator(String articleTitle) {
         return By.xpath(String.format("//*[@text='%s']", articleTitle));
     }
@@ -164,7 +179,7 @@ public class WikiTests extends BaseTest {
         waitForElementPresentByLocator(searchResult);
         return driver.findElements(searchResult);
     }
-    
+
     private void skipTutorial() {
         WebElement skipButton = waitForElementPresentByLocator(By.xpath("//*[contains(@text, 'SKIP')]"));
         skipButton.click();
