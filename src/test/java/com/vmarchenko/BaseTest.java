@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,6 +28,8 @@ public class BaseTest {
     protected WebDriverWait wait;
     protected final static int timeout = 5;
     protected final static int minWaitingTimeMilliseconds = 500;
+
+    private final static ScreenOrientation screenDefaultOrientation = ScreenOrientation.PORTRAIT;
 
     protected Dimension deviceResolution;
 
@@ -66,6 +69,12 @@ public class BaseTest {
                 .moveTo(end)
                 .release()
                 .perform();
+    }
+
+    protected void makeDefaultOrientation() {
+        if (! driver.getOrientation().value().equals(screenDefaultOrientation.value())) {
+            driver.rotate(screenDefaultOrientation);
+        }
     }
 
     protected void performSearch(String queryToSearch) {

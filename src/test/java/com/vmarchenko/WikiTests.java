@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.DeviceRotation;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public class WikiTests extends BaseTest {
 
     @Before
     public void navigateMainScreen() {
+        makeDefaultOrientation();
         skipTutorial();
     }
 
@@ -114,6 +117,19 @@ public class WikiTests extends BaseTest {
 
         String articleTitle = selectNthResult(2);
         assertArticleHasTitle(articleTitle);
+    }
+
+    @Test
+    public void testTitleRemainsUnchangedWhenChangingDeviceOrientation() {
+        performSearch("Java");
+        waitForElementWithTextPresent("Object-oriented programming language").click();
+        WebElement articleTitle = waitForElementWithTextPresent("(programming language)");
+        Assert.assertEquals("Java (programming language)", articleTitle.getText());
+
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+
+        articleTitle = waitForElementWithTextPresent("(programming language)");
+        Assert.assertEquals("Java (programming language)", articleTitle.getText());
     }
 
     private void assertArticleHasTitle(String articleTitle) {
