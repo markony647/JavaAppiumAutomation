@@ -28,7 +28,7 @@ public class SearchTests extends BaseTest {
     public void testCanCancelSearch() {
         List<WebElement> foundResults = searchPage
                 .performSearch("Python")
-                .getAllSearchResults();
+                .getAllSearchResultTitles();
 
         Assert.assertTrue(foundResults.size() > 1);
 
@@ -46,7 +46,19 @@ public class SearchTests extends BaseTest {
         String searchQuery = "Java";
 
         List<WebElement> searchResults = searchPage.performSearch(searchQuery)
-                .getAllSearchResults();
+                .getAllSearchResultTitles();
         searchResults.forEach(res -> Assert.assertTrue(res.getText().contains(searchQuery)));
+    }
+
+    @Test
+    public void testCanSearchAndFindSearchResultWithTitleAndDescription() {
+        String searchQuery = "Apple";
+        List<WebElement> searchResults = searchPage
+                .performSearch(searchQuery)
+                .getAllSearchResultTitles();
+
+        Assert.assertTrue(searchResults.size() >= 2);
+
+        searchPage.findAndAssertSearchResultWithTitleAndDescription(searchQuery, "Edible fruit of domesticated deciduous tree");
     }
 }
