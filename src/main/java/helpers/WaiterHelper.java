@@ -9,13 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WaiterHelper {
 
-    private AppiumDriver driver;
     private WebDriverWait wait;
 
     private final static int timeout = 5;
 
     public WaiterHelper(AppiumDriver driver) {
-        this.driver = driver;
         this.wait = new WebDriverWait(driver, timeout);
     }
 
@@ -31,7 +29,7 @@ public class WaiterHelper {
         waitFor(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
-    private  <T> T waitFor(ExpectedCondition<T> condition) {
+    private <T> T waitFor(ExpectedCondition<T> condition) {
         return wait.until(condition);
     }
 }
