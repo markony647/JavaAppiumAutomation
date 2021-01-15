@@ -1,27 +1,27 @@
 package com.vmarchenko.android;
 
-import com.vmarchenko.base.AndroidBaseTest;
+import com.vmarchenko.base.BaseTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
-import pages.android.*;
+import pages.*;
 
 import java.util.List;
 
-public class ReadingListTests extends AndroidBaseTest {
+public class ReadingListTests extends BaseTest {
 
     private SearchPage searchPage;
-    private ArticleMenuBar articleMenuBar;
-    private SystemNavigationBar systemNavigationBar;
+    private SavedArticlesPage savedArticlesPage;
     private ArticlePage articlePage;
+    private SaveArticlePage saveArticlePage;
 
     @Before
     public void initPages() {
-        searchPage = new SearchPage(driver);
-        articleMenuBar = new ArticleMenuBar(driver);
-        systemNavigationBar = new SystemNavigationBar(driver);
-        articlePage = new ArticlePage(driver);
+        searchPage = pageFactory.searchPage();
+        savedArticlesPage = pageFactory.savedArticlesPage();
+        articlePage = pageFactory.articlePage();
+        saveArticlePage = pageFactory.saveArticlePage();
     }
 
     @Test
@@ -32,20 +32,15 @@ public class ReadingListTests extends AndroidBaseTest {
                 .performSearch("Selenium")
                 .selectFirstSearchResult();
 
-        articleMenuBar.clickSave()
-                .clickAddToList()
-                .createNewList(listName);
+        saveArticlePage.saveArticle(listName);
 
-        systemNavigationBar.back();
+        articlePage.backToSearchResults();
 
         String secondResult = searchPage.selectNthSearchResult(1);
 
-        articleMenuBar
-                .clickSave()
-                .clickAddToList()
-                .selectList(listName);
+        saveArticlePage.saveArticle(listName);
 
-        ReadingListPage readingList = articleMenuBar.goToViewList();
+        ReadingListPage readingList = savedArticlesPage.visit();
 
         List<WebElement> allSavedArticles = readingList.findAllSavedArticles();
         Assert.assertEquals(2, allSavedArticles.size());
@@ -55,7 +50,6 @@ public class ReadingListTests extends AndroidBaseTest {
         allSavedArticles = readingList.findAllSavedArticles();
         Assert.assertEquals(1, allSavedArticles.size());
         WebElement singleArticle = allSavedArticles.get(0);
-        Assert.assertEquals(singleArticle.getText(), firstResult);
 
         singleArticle.click();
 

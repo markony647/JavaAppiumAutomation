@@ -1,44 +1,52 @@
 package com.vmarchenko.base;
 
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.io.File;
+import core.Platform;
+import factories.AndroidPageFactory;
+import factories.IOSPageFactory;
+import factories.PageFactory;
+import helpers.DeviceRotationHelper;
+import io.appium.java_client.AppiumDriver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import pages.WelcomePage;
 
 public class BaseTest {
 
-    protected static final String appiumLocalUrl = "http://127.0.0.1:4723/wd/hub";
-    private final static String PLATFORM_IOS = "ios";
-    private final static String PLATFORM_ANDROID = "android";
+    public AppiumDriver driver;
 
-    protected DesiredCapabilities getDesiredCapabilitiesForPlatform() {
-        String platform = System.getenv("PLATFORM");
-        if (PLATFORM_ANDROID.equalsIgnoreCase(platform)) {
-            return androidCapabilities();
+    private WelcomePage welcomePage;
+    private DeviceRotationHelper rotationHelper;
+    public static PageFactory pageFactory;
+
+    @BeforeClass
+    public static void determineFactory() {
+        Platform platform = Platform.getInstance();
+        if (platform.isAndroid()) {
+            pageFactory = new AndroidPageFactory();
+        } else if (platform.isIOS()) {
+            pageFactory = new IOSPageFactory();
+        } else {
+            throw new RuntimeException("Cannot determine the platform");
         }
-        if (PLATFORM_IOS.equalsIgnoreCase(platform)) {
-            return iOSCapabilities();
-        }
-        throw new RuntimeException("Cannot get desired capabilities for platform " + platform);
     }
 
-    private DesiredCapabilities androidCapabilities() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("deviceName", "AndroidTestDevice");
-        capabilities.setCapability("platformVersion", "8.0.0");
-        capabilities.setCapability("automationName", "Appium");
-        capabilities.setCapability("appPackage", "org.wikipedia");
-        capabilities.setCapability("appActivity", ".main.MainActivity");
-        capabilities.setCapability("app", new File("apks/org.wikipedia.apk").getAbsolutePath());
-        return capabilities;
+    @Before
+    public void setUp() {
+        this.driver = Platform.getInstance().getDriver();
+        welcomePage = pageFactory.welcomePage();
+        rotationHelper = new DeviceRotationHelper(driver);
+        navigateMainScreen();
     }
 
-    private DesiredCapabilities iOSCapabilities() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("platformName", "iOS");
-        capabilities.setCapability("deviceName", "iPhone 11");
-        capabilities.setCapability("platformVersion", "13.4");
-        capabilities.setCapability("app", new File("apks/Wikipedia.app").getAbsolutePath());
-        return capabilities;
+    private void navigateMainScreen() {
+        rotationHelper.makeDefaultOrientation();
+        welcomePage.skipWelcomePage();
     }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+
 }

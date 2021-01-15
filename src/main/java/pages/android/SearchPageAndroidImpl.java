@@ -5,12 +5,13 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.junit.Assert;
+import pages.SearchPage;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class SearchPage {
+public class SearchPageAndroidImpl implements SearchPage {
 
     private final static String templateMark = "{TEMPLATE}";
 
@@ -27,11 +28,12 @@ public class SearchPage {
     private By searchResultTitles = By.xpath(searchResultTitlesXpath);
     private By searchResultDescriptions = By.xpath(searchResultDescriptionsXpath);
 
-    public SearchPage(AppiumDriver driver) {
+    public SearchPageAndroidImpl(AppiumDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
     }
 
+    @Override
     public WebElement findAndAssertSearchResultWithTitleAndDescription(String title, String description) {
         By titleElement = By.xpath(searchResultTitleWithSpecificTextTemplate.replace(templateMark, title));
         By descriptionElement = By.xpath(searchResultDescriptionWithSpecificTextTemplate.replace(templateMark, description));

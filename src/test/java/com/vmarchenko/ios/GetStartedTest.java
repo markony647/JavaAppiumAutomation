@@ -1,17 +1,17 @@
 package com.vmarchenko.ios;
 
-import com.vmarchenko.base.IOSBaseTest;
+import com.vmarchenko.base.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
-import pages.ios.WelcomePage;
+import pages.WelcomePage;
 
-public class GetStartedTest extends IOSBaseTest {
+public class GetStartedTest extends BaseTest {
 
     private WelcomePage welcomePage;
 
     @Before
     public void initPages() {
-        welcomePage = new WelcomePage(driver);
+        welcomePage = pageFactory.welcomePage();
     }
 
     @Test

@@ -1,41 +1,41 @@
 package com.vmarchenko.android;
 
-import com.vmarchenko.base.AndroidBaseTest;
+import com.vmarchenko.base.BaseTest;
 import helpers.DeviceRotationHelper;
 import helpers.SwipeHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
-import pages.android.ArticlePage;
-import pages.android.SearchPage;
+import pages.android.ArticlePageAndroidImpl;
+import pages.android.SearchPageAndroidImpl;
 
-public class ArticleTests extends AndroidBaseTest {
+public class ArticleTests extends BaseTest {
 
-    private SearchPage searchPage;
-    private ArticlePage articlePage;
+    private SearchPageAndroidImpl searchPageAndroidImpl;
+    private ArticlePageAndroidImpl articlePage;
     private SwipeHelper swipeHelper;
     private DeviceRotationHelper rotationHelper;
 
     @Before
     public void initPages() {
-        searchPage = new SearchPage(driver);
-        articlePage = new ArticlePage(driver);
+        searchPageAndroidImpl = new SearchPageAndroidImpl(driver);
+        articlePage = new ArticlePageAndroidImpl(driver);
         swipeHelper = new SwipeHelper(driver);
         rotationHelper = new DeviceRotationHelper(driver);
     }
 
     @Test
     public void testTitleElementPresentInArticle() {
-        searchPage.performSearch("Selenium");
+        searchPageAndroidImpl.performSearch("Selenium");
 
-        String articleTitle = searchPage.selectNthSearchResult(2);
+        String articleTitle = searchPageAndroidImpl.selectNthSearchResult(2);
         articlePage.assertArticleHasTitle(articleTitle);
     }
 
     @Test
     public void testArticleTileShouldMatchSearchQuery() {
-        searchPage.performSearch("Java")
+        searchPageAndroidImpl.performSearch("Java")
                 .waitForSearchResultWithExactText("Object-oriented programming language")
                 .click();
 
@@ -46,7 +46,7 @@ public class ArticleTests extends AndroidBaseTest {
     public void testSwipeArticle() {
         By endOfArticle = By.xpath("//*[@text='View article in browser']");
 
-        searchPage.performSearch("Appium")
+        searchPageAndroidImpl.performSearch("Appium")
                 .selectFirstSearchResult();
         swipeHelper.swipeUpForElement(endOfArticle);
     }
@@ -55,7 +55,7 @@ public class ArticleTests extends AndroidBaseTest {
     public void testTitleRemainsUnchangedWhenChangingDeviceOrientation() {
         String expectedArticleTitle = "Java (programming language)";
 
-        searchPage.performSearch("Java")
+        searchPageAndroidImpl.performSearch("Java")
                 .waitForSearchResultWithExactText("Object-oriented programming language")
                 .click();
         articlePage.assertArticleHasTitle(expectedArticleTitle);

@@ -1,20 +1,23 @@
-package pages.android;
+package pages.android.savearticle;
 
 import helpers.WaiterHelper;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import pages.ReadingListPage;
+import pages.SavedArticlesPage;
+import pages.android.ReadingListPageAndroidImpl;
 
-public class ArticleMenuBar {
+public class ArticleMenuBarAndroidImpl implements SavedArticlesPage {
 
     private final AppiumDriver driver;
     private final WaiterHelper waiterHelper;
 
-    public ArticleMenuBar(AppiumDriver driver) {
+    public ArticleMenuBarAndroidImpl(AppiumDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
     }
 
-    public ArticleMenuBar clickSave() {
+    public ArticleMenuBarAndroidImpl clickSave() {
         waiterHelper.waitForElementPresentByLocator(By.id("org.wikipedia:id/article_menu_bookmark"))
                 .click();
         return this;
@@ -26,8 +29,8 @@ public class ArticleMenuBar {
         return new SaveToReadingListPage(this.driver);
     }
 
-    public ReadingListPage goToViewList() {
+    public ReadingListPage visit() {
         waiterHelper.waitForElementWithExactTextPresent("VIEW LIST").click();
-        return new ReadingListPage(this.driver);
+        return new ReadingListPageAndroidImpl(this.driver);
     }
 }

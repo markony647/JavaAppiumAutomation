@@ -1,5 +1,6 @@
 package helpers;
 
+import core.Platform;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
@@ -65,10 +66,19 @@ public class SwipeHelper {
 
         int middle_y = (upper_y + lower_y) / 2;
 
-        touchAction().press(point(right_x, middle_y))
-                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(minWaitingTimeMilliseconds)))
-                .moveTo(point(left_x, middle_y))
-                .release().perform();
+        TouchAction action = touchAction();
+
+        action.press(point(right_x, middle_y))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(minWaitingTimeMilliseconds)));
+
+        if (Platform.getInstance().isAndroid()) {
+            action.moveTo(point(left_x, middle_y));
+        } else {
+            int offset_x = (-1) * (elementToSwipe.getSize().getWidth());
+            action.moveTo(point(offset_x, 0));
+        }
+        action.release();
+        action.perform();
     }
 
     private TouchAction touchAction() {

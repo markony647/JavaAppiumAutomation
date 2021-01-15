@@ -1,4 +1,4 @@
-package pages.android;
+package pages.android.savearticle;
 
 import helpers.WaiterHelper;
 import io.appium.java_client.AppiumDriver;

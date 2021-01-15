@@ -5,16 +5,17 @@ import helpers.WaiterHelper;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pages.ReadingListPage;
 
 import java.util.List;
 
-public class ReadingListPage {
+public class ReadingListPageAndroidImpl implements ReadingListPage {
 
     private final AppiumDriver driver;
     private final WaiterHelper waiterHelper;
     private SwipeHelper swipeHelper;
 
-    public ReadingListPage(AppiumDriver driver) {
+    public ReadingListPageAndroidImpl(AppiumDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
         swipeHelper = new SwipeHelper(driver);

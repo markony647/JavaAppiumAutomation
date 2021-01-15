@@ -1,52 +1,52 @@
 package com.vmarchenko.android;
 
-import com.vmarchenko.base.AndroidBaseTest;
+import com.vmarchenko.base.BaseTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
-import pages.android.SearchPage;
+import pages.android.SearchPageAndroidImpl;
 
 import java.util.List;
 
-public class SearchTests extends AndroidBaseTest {
+public class SearchTests extends BaseTest {
 
-    private SearchPage searchPage;
+    private SearchPageAndroidImpl searchPageAndroidImpl;
 
     @Before
     public void initPages() {
-        searchPage = new SearchPage(driver);
+        searchPageAndroidImpl = new SearchPageAndroidImpl(driver);
     }
 
     @Test
     public void testCanSearch() {
-        searchPage
+        searchPageAndroidImpl
                 .performSearch("Java")
                 .waitForSearchResultWithExactText("Object-oriented programming language");
     }
 
     @Test
     public void testCanCancelSearch() {
-        List<WebElement> foundResults = searchPage
+        List<WebElement> foundResults = searchPageAndroidImpl
                 .performSearch("Python")
                 .getAllSearchResultTitles();
 
         Assert.assertTrue(foundResults.size() > 1);
 
-        searchPage.cancelSearch();
-        searchPage.waitForSearchResultInvisibility();
+        searchPageAndroidImpl.cancelSearch();
+        searchPageAndroidImpl.waitForSearchResultInvisibility();
     }
 
     @Test
     public void testSearchFieldContainsCorrectText() {
-        Assert.assertEquals("Search field text mismatch", "Search Wikipedia", searchPage.searchField().getText());
+        Assert.assertEquals("Search field text mismatch", "Search Wikipedia", searchPageAndroidImpl.searchField().getText());
     }
 
     @Test
     public void testEachSearchResultContainsSearchQuery() {
         String searchQuery = "Java";
 
-        List<WebElement> searchResults = searchPage.performSearch(searchQuery)
+        List<WebElement> searchResults = searchPageAndroidImpl.performSearch(searchQuery)
                 .getAllSearchResultTitles();
         searchResults.forEach(res -> Assert.assertTrue(res.getText().contains(searchQuery)));
     }
@@ -54,12 +54,12 @@ public class SearchTests extends AndroidBaseTest {
     @Test
     public void testCanSearchAndFindSearchResultWithTitleAndDescription() {
         String searchQuery = "Apple";
-        List<WebElement> searchResults = searchPage
+        List<WebElement> searchResults = searchPageAndroidImpl
                 .performSearch(searchQuery)
                 .getAllSearchResultTitles();
 
         Assert.assertTrue(searchResults.size() >= 2);
 
-        searchPage.findAndAssertSearchResultWithTitleAndDescription(searchQuery, "Edible fruit of domesticated deciduous tree");
+        searchPageAndroidImpl.findAndAssertSearchResultWithTitleAndDescription(searchQuery, "Edible fruit of domesticated deciduous tree");
     }
 }
