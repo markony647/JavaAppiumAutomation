@@ -40,6 +40,7 @@ public class SearchPageAndroidImpl implements SearchPage {
         waiterHelper.waitForElementPresentByLocator(titleElement);
         waiterHelper.waitForElementPresentByLocator(descriptionElement);
 
+
         List<WebElement> allSearchResults = searchResults();
         List<WebElement> searchResults = allSearchResults.stream()
                 .filter(res -> res.findElement(searchResultTitles).getText().equals(title)

@@ -13,4 +13,6 @@ public interface SearchPage {
     void cancelSearch();
     WebElement waitForSearchResultWithExactText(String textInSearchResult);
     String selectNthSearchResult(int resultIndex);
+    void waitForSearchResultInvisibility();
+    WebElement searchField();
 }
