@@ -8,6 +8,7 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 
@@ -22,8 +23,8 @@ public class SwipeHelper {
     private final static int minWaitingTimeMilliseconds = 500;
     private Dimension deviceResolution;
 
-    public SwipeHelper(AppiumDriver driver) {
-        this.driver = driver;
+    public SwipeHelper(RemoteWebDriver driver) {
+        this.driver = (AppiumDriver) driver;
         waiterHelper = new WaiterHelper(driver);
         deviceResolution = driver.manage().window().getSize();
     }

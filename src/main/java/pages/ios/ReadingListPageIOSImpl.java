@@ -2,20 +2,20 @@ package pages.ios;
 
 import helpers.SwipeHelper;
 import helpers.WaiterHelper;
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.ReadingListPage;
 
 import java.util.List;
 
 public class ReadingListPageIOSImpl implements ReadingListPage {
 
-    private AppiumDriver driver;
+    private RemoteWebDriver driver;
     private WaiterHelper waiterHelper;
     private SwipeHelper swipeHelper;
 
-    public ReadingListPageIOSImpl(AppiumDriver driver) {
+    public ReadingListPageIOSImpl(RemoteWebDriver driver) {
         this.driver = driver;
         this.swipeHelper = new SwipeHelper(driver);
         this.waiterHelper = new WaiterHelper(driver);

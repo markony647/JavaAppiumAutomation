@@ -1,10 +1,10 @@
 package pages.android;
 
 import helpers.WaiterHelper;
-import io.appium.java_client.AppiumDriver;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.junit.Assert;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.SearchPage;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class SearchPageAndroidImpl implements SearchPage {
 
     private final static String templateMark = "{TEMPLATE}";
 
-    private final AppiumDriver driver;
+    private final RemoteWebDriver driver;
     private final WaiterHelper waiterHelper;
 
     private String searchResultTitlesXpath = "//*[@resource-id='org.wikipedia:id/page_list_item_title']";
@@ -28,7 +28,7 @@ public class SearchPageAndroidImpl implements SearchPage {
     private By searchResultTitles = By.xpath(searchResultTitlesXpath);
     private By searchResultDescriptions = By.xpath(searchResultDescriptionsXpath);
 
-    public SearchPageAndroidImpl(AppiumDriver driver) {
+    public SearchPageAndroidImpl(RemoteWebDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
     }

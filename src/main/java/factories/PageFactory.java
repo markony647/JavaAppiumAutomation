@@ -1,7 +1,7 @@
 package factories;
 
 import core.Platform;
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.*;
 
 public interface PageFactory {
@@ -12,7 +12,7 @@ public interface PageFactory {
     NavigationBar systemNavigationBar();
     ArticlePage articlePage();
 
-    default AppiumDriver driver() {
+    default RemoteWebDriver driver() {
         return Platform.getInstance().getDriver();
     }
 }

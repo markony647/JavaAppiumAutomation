@@ -1,10 +1,10 @@
 package pages.ios;
 
 import helpers.WaiterHelper;
-import io.appium.java_client.AppiumDriver;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.SearchPage;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
 
 public class SearchPageIOSImpl implements SearchPage {
 
-    private final AppiumDriver driver;
+    private final RemoteWebDriver driver;
     private final WaiterHelper waiterHelper;
     private final static String templateMark = "{TEMPLATE}";
 
@@ -22,7 +22,7 @@ public class SearchPageIOSImpl implements SearchPage {
     private By text = By.xpath("//XCUIElementTypeStaticText");
     private String searchResultWithSpecificTextTemplate = "//*[@type='XCUIElementTypeCell']//*[@type= 'XCUIElementTypeStaticText' and @value='{TEMPLATE}']";
 
-    public SearchPageIOSImpl(AppiumDriver driver) {
+    public SearchPageIOSImpl(RemoteWebDriver driver) {
         this.driver = driver;
         this.waiterHelper = new WaiterHelper(driver);
     }

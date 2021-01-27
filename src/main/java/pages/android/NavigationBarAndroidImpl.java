@@ -1,17 +1,17 @@
 package pages.android;
 
 import helpers.WaiterHelper;
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.NavigationBar;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class NavigationBarAndroidImpl implements NavigationBar {
 
-    private final AppiumDriver driver;
+    private final RemoteWebDriver driver;
     private final WaiterHelper waiterHelper;
 
-    public NavigationBarAndroidImpl(AppiumDriver driver) {
+    public NavigationBarAndroidImpl(RemoteWebDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
     }

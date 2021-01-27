@@ -2,14 +2,15 @@ package pages.android.savearticle;
 
 import core.Platform;
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.SaveArticlePage;
 
 public class SaveArticlePageAndroidImpl implements SaveArticlePage {
 
-    private AppiumDriver driver;
+    private RemoteWebDriver driver;
     private ArticleMenuBarAndroidImpl articleMenuBar;
 
-    public SaveArticlePageAndroidImpl(AppiumDriver driver) {
+    public SaveArticlePageAndroidImpl(RemoteWebDriver driver) {
         this.driver = driver;
         this.articleMenuBar = new ArticleMenuBarAndroidImpl(driver);
     }

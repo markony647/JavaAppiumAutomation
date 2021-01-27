@@ -3,16 +3,17 @@ package pages.android.savearticle;
 import helpers.WaiterHelper;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.ReadingListPage;
 import pages.SavedArticlesPage;
 import pages.android.ReadingListPageAndroidImpl;
 
 public class ArticleMenuBarAndroidImpl implements SavedArticlesPage {
 
-    private final AppiumDriver driver;
+    private final RemoteWebDriver driver;
     private final WaiterHelper waiterHelper;
 
-    public ArticleMenuBarAndroidImpl(AppiumDriver driver) {
+    public ArticleMenuBarAndroidImpl(RemoteWebDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
     }

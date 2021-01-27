@@ -1,16 +1,16 @@
 package pages.ios;
 
 import helpers.WaiterHelper;
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.NavigationBar;
 
 public class NavigationBarIOSImpl implements NavigationBar {
 
-    private final AppiumDriver driver;
+    private final RemoteWebDriver driver;
     private final WaiterHelper waiterHelper;
 
-    public NavigationBarIOSImpl(AppiumDriver driver) {
+    public NavigationBarIOSImpl(RemoteWebDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
     }

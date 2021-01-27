@@ -1,15 +1,15 @@
 package pages.android.savearticle;
 
 import helpers.WaiterHelper;
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class SaveToReadingListPage {
 
-    private final AppiumDriver driver;
+    private final RemoteWebDriver driver;
     private final WaiterHelper waiterHelper;
 
-    public SaveToReadingListPage(AppiumDriver driver) {
+    public SaveToReadingListPage(RemoteWebDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
     }

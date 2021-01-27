@@ -1,18 +1,18 @@
 package pages.android;
 
 import helpers.WaiterHelper;
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.WelcomePage;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class WelcomePageAndroidImpl implements WelcomePage {
 
-    private final AppiumDriver driver;
+    private final RemoteWebDriver driver;
     private final WaiterHelper waiterHelper;
 
-    public WelcomePageAndroidImpl(AppiumDriver driver) {
+    public WelcomePageAndroidImpl(RemoteWebDriver driver) {
         this.driver = driver;
         waiterHelper = new WaiterHelper(driver);
     }

@@ -5,16 +5,17 @@ import helpers.WaiterHelper;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.SaveArticlePage;
 
 @Slf4j
 public class SaveArticlePageIOSImpl implements SaveArticlePage {
 
-    private AppiumDriver driver;
+    private RemoteWebDriver driver;
     private WaiterHelper waiterHelper;
     private SavedArticlesPageIOSImpl articleMenuBar;
 
-    public SaveArticlePageIOSImpl(AppiumDriver driver) {
+    public SaveArticlePageIOSImpl(RemoteWebDriver driver) {
         this.driver = driver;
         this.waiterHelper = new WaiterHelper(driver);
         this.articleMenuBar = new SavedArticlesPageIOSImpl(driver);
